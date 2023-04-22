@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = int(os.environ.get('DEBUG_VALUE', 0))
 
 
-AUTH_USER_MODEL = 'user.User'
+# AUTH_USER_MODEL = 'user.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 
     
     'core.base',
-    'core.user',
+    # 'core.user',
 ]
 
 MIDDLEWARE = [
@@ -96,10 +96,13 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_URL = 'images/'
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATICFILES_DIRS =[
+    BASE_DIR / 'static/'
+]
+
+MEDIA_ROOT = 'static/images'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -109,17 +112,17 @@ REST_FRAMEWORK = {
     
     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
     
     
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
         
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
         
         # 'rest_framework.authentication.TokenAuthentication',
-    ],
+    # ],
 }
 
 CORS_ALLOWED_ORIGINS = [
