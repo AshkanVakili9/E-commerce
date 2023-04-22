@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Sms, User
+from ..base.models import Sms, User
 
 
 class UserSerializerCreate(serializers.ModelSerializer):

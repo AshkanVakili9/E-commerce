@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = int(os.environ.get('DEBUG_VALUE', 0))
 
 
-AUTH_USER_MODEL = 'base.User'
+AUTH_USER_MODEL = 'user.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
     
     'core.base',
+    'core.user',
 ]
 
 MIDDLEWARE = [
