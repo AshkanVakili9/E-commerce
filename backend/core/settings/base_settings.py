@@ -1,10 +1,11 @@
 
 
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv() 
+load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,21 +26,45 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
 
-    
-    'core.base',
+
+    'core.base.apps.BaseConfig',
     # 'core.user',
 ]
 
+
+REST_FRAMEWORK = {
+
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+
+SIMPLE_JWT = {
+    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+}
+
+
 MIDDLEWARE = [
-    
+
     'corsheaders.middleware.CorsMiddleware',
 
-    
-    
+
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -98,32 +123,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = 'images/'
 
-STATICFILES_DIRS =[
-    BASE_DIR / 'static/'
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static/'
+# ]
 
 MEDIA_ROOT = 'static/images'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-REST_FRAMEWORK = {
-    
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-    
-    
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-        
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-        
-        # 'rest_framework.authentication.TokenAuthentication',
-    # ],
-}
 
 CORS_ALLOWED_ORIGINS = [
 
