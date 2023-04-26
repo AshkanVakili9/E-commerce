@@ -33,18 +33,10 @@ INSTALLED_APPS = [
 
 
     'core.base.apps.BaseConfig',
-    # 'core.user',
 ]
 
 
 REST_FRAMEWORK = {
-
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
 
