@@ -20,7 +20,7 @@ def addOrderItems(request):
         return Response({'detail': 'No order items'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         # (1) Create a order
-        order = Order.objects.get(
+        order = Order.objects.create(
             user=user,
             paymentMethod=data['paymentMethod'],
             taxPrice=data['taxPrice'],
