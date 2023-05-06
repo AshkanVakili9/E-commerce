@@ -89,7 +89,7 @@ def getUsers(request):
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUserById(request, pk):
-    user = User.objects.get(_id=pk)
+    user = User.objects.get(id=pk)
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
@@ -97,7 +97,7 @@ def getUserById(request, pk):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUser(request, pk):
-    user = User.objects.get(_id=pk)
+    user = User.objects.get(id=pk)
     
     data = request.data
     
