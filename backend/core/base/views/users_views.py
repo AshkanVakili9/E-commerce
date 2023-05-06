@@ -117,6 +117,6 @@ def updateUser(request, pk):
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deleteUser(request, pk):
-    userForDeletion = User.objects.get(_id=pk)
+    userForDeletion = User.objects.get(id=pk)
     userForDeletion.delete()
     return Response('User deleted successfully', status=status.HTTP_200_OK)
