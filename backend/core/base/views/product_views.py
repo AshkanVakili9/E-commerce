@@ -127,7 +127,7 @@ def createdProductReview(request, pk):
     data = request.data
     
     # (1) Review already exists
-    alreadyExists = Product.review_set.filter(user=user).exists()
+    alreadyExists = product.review_set.filter(user=user).exists()
     
     if alreadyExists:
         content = {'detail': 'Review already exists'}
@@ -148,7 +148,7 @@ def createdProductReview(request, pk):
             comment = data['comment']
         )
     
-    reviews = Product.review_set.all()
+    reviews = product.review_set.all()
     product.numReviews = len(reviews)
 
     total = 0
