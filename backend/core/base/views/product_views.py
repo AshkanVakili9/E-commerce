@@ -17,10 +17,10 @@ def getProducts(request):
     if query == None:
         query = ''
         
-    product = Product.objects.filter(name__icontains=query)
+    products = Product.objects.filter(name__icontains=query)
     
     page = request.query_params.get('page')
-    paginator = Paginator(product, 2)
+    paginator = Paginator(products, 5)
     
     try:
         products = paginator.page(page)
@@ -35,7 +35,7 @@ def getProducts(request):
     
     page = int(page)
     
-    serializer = ProductSerializer(product, many=True)
+    serializer = ProductSerializer(products, many=True)
     return Response({'products':serializer.data, 'page':page, 'pages':paginator.num_pages})
 
 
