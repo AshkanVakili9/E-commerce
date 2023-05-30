@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from core.base.models import Product, Review
-from core.base.serializers import ProductSerializer
+from core.base.models import Product, Review, Category
+from core.base.serializers import ProductSerializer, CategorySerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
@@ -9,8 +9,71 @@ from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+@api_view(['GET'])
+def getCategories(request):
+    categories = Category.objects.all()
+    if len(categories) == 0:
+        return Response("Category is empty", status=status.HTTP_204_NO_CONTENT)
+    else:
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+
+@api_view(['GET'])
+def getCategory(request, pk):
+    category = Category.objects.get(_id=pk)
+    if category is not None: 
+        serializer = CategorySerializer(category, many=False)
+        return Response(serializer.data)
+    else:
+        return Response("Category is not found", status=status.HTTP_404_NOT_FOUND)
+ 
+ 
+        
+@api_view(['Post'])
+@permission_classes([IsAdminUser])
+def createCategory(request):        
+    title = request.data['title']
+    category = Category.objects.create(
+        title = title,
+    )    
+    serializer = CategorySerializer(category, many=False)
+    return Response(serializer.data)         
+
+
+
+       
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateCategory(request, pk):
+    title = request.data
+    query = Category.objects.get(_id=pk)
+    if query is not None:        
+        serializer = CategorySerializer(query, title, partial=True)
+        if serializer.is_valid():
+            serializer.save()    
+            return Response(serializer.data)
+        else: 
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+    else: 
+        return Response('Category not found', status=status.HTTP_404_NOT_FOUND) 
+
+
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteCategory(request, pk):
+    category = Category.objects.get(_id=pk)
+    if category is not None:
+        category.delete()
+        return Response('Category deleted successfully')
+    else: 
+        return Response('Category not found', status=status.HTTP_404_NOT_FOUND) 
+
+    
+    
 @api_view(['GET'])
 def getProducts(request):
     query = request.query_params.get('keyword')

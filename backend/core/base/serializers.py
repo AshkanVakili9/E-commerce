@@ -45,6 +45,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        
+        
+        
 class ProductSerializer(serializers.ModelSerializer):
     review = serializers.SerializerMethodField(read_only=True)
     
@@ -57,6 +65,8 @@ class ProductSerializer(serializers.ModelSerializer):
         review = obj.review_set.all()
         serializer = ReviewSerializer(review, many=True)
         return serializer.data
+
+
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:
